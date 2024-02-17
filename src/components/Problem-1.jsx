@@ -4,7 +4,7 @@ const Problem1 = () => {
   //all states
   const [show, setShow] = useState("all");
   const [name, setName] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("active");
   const [tasks, setTasks] = useState([]);
 
   //loading tasks from local storage
@@ -22,12 +22,12 @@ const Problem1 = () => {
   //handle submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTask = { name, status: "active" };
+    const newTask = { name, status };
     setTasks([...tasks, newTask]);
     // to save local storage
     saveTasksToLocal([...tasks, newTask]);
     setName("");
-    setStatus("");
+    setStatus("active");
   };
 
   const handleClick = (val) => {
@@ -40,6 +40,15 @@ const Problem1 = () => {
   const handleStatusChange = (taskIndex) => {
     const updatedTasks = [...tasks];
     updatedTasks[taskIndex].status = "completed";
+    setTasks(updatedTasks);
+    saveTasksToLocal(updatedTasks);
+  };
+
+  //delete task
+
+  const handleDeleteTask = (tasksIndex) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(tasksIndex, 1);
     setTasks(updatedTasks);
     saveTasksToLocal(updatedTasks);
   };
@@ -72,13 +81,16 @@ const Problem1 = () => {
               />
             </div>
             <div className="col-auto">
-              <input
-                type="text"
+              <select
+                // type="text"
                 className="form-control"
-                placeholder="Status"
+                // placeholder="Status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-              />
+              >
+                <option value={"active"}>Active</option>
+                <option value={"completed"}>Completed</option>
+              </select>
             </div>
             <div className="col-auto">
               <button type="submit" className="btn btn-primary">
@@ -123,6 +135,7 @@ const Problem1 = () => {
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Status</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -130,16 +143,25 @@ const Problem1 = () => {
                 <tr key={index}>
                   <td>{task.name}</td>
                   <td>
+                    {task.status === "active" && <span>Active</span>}
+                    {task.status === "completed" && <span>Completed</span>}
+                  </td>
+                  <td>
                     {task.status === "active" && (
-                      <button
-                        className="btn btn-success"
-                        onClick={() => handleStatusChange(index)}
-                      >
-                        Completed
-                      </button>
-                    )}
-                    {task.status === "completed" && (
-                      <span>Completed</span>
+                      <div>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => handleStatusChange(index)}
+                        >
+                          Done
+                        </button>
+                        <button
+                          className="btn btn-danger ms-1"
+                          onClick={() => handleDeleteTask(index)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>
