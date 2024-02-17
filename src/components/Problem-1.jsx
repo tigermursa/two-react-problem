@@ -1,11 +1,24 @@
 import React, { useState } from "react";
 
 const Problem1 = () => {
-  //all states here
+  //all states
   const [show, setShow] = useState("all");
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
   const [tasks, setTasks] = useState([]);
+
+
+  //handle submit function 
+const handleSubmit=(e)=>{
+
+    e.preventDefault();
+    const newTask = {name,status:"active"};
+    setTasks([...tasks,newTask]);
+    // to save local storage (pending to create )
+    saveTasksToLocal([...tasks,newTask]);
+    setName('');
+    setStatus('');
+}
 
   const handleClick = (val) => {
     setShow(val);
