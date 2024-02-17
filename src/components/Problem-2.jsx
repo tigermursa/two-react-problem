@@ -2,20 +2,29 @@ import React, { useState, useEffect } from "react";
 import ModalA from "./ModalA";
 import ModalB from "./ModalB";
 import { Button } from "react-bootstrap";
-
+import axios from "axios";
 
 const Problem2 = () => {
   // All states
   const [showModalA, setShowModalA] = useState(false);
   const [showModalB, setShowModalB] = useState(false);
   const [contacts, setContacts] = useState([]);
+  const [onlyEven, setOnlyEven] = useState(false);
 
   useEffect(() => {
-    //demo data
-    setContacts([
-      { id: 1, name: "John Doe", country: "USA" },
-      { id: 2, name: "Jane Doe", country: "Canada" },
-    ]);
+    // Fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://contact.mediusware.com/api/contacts/"
+        );
+        setContacts(response.data.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const openModalA = () => {
@@ -43,7 +52,9 @@ const Problem2 = () => {
     setShowModalB(false);
     setShowModalA(true);
   };
-
+  const handleToggleEven = () => {
+    setOnlyEven(!onlyEven);
+  };
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
@@ -70,6 +81,8 @@ const Problem2 = () => {
         closeModalA={closeModalA}
         contacts={contacts}
         switchToModalB={switchToModalB}
+        onlyEven={onlyEven}
+        handleToggleEven={handleToggleEven}
       />
       {/* Modal B component */}
       <ModalB
@@ -77,6 +90,8 @@ const Problem2 = () => {
         closeModalB={closeModalB}
         contacts={contacts}
         switchToModalA={switchToModalA}
+        onlyEven={onlyEven}
+        handleToggleEven={handleToggleEven}
       />
     </div>
   );
