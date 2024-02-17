@@ -16,15 +16,26 @@ const Problem1 = () => {
       <div className="row justify-content-center mt-5">
         <h4 className="text-center text-uppercase mb-5">Problem-1</h4>
         <div className="col-6 ">
-          <form className="row gy-2 gx-3 align-items-center mb-4">
+          <form
+            className="row gy-2 gx-3 align-items-center mb-4"
+            onSubmit={handleSubmit}
+          >
             <div className="col-auto">
-              <input type="text" className="form-control" placeholder="Name" />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="col-auto">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
               />
             </div>
             <div className="col-auto">
