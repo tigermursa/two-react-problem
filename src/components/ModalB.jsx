@@ -23,9 +23,9 @@ const ModalB = ({
       <Modal.Body>
         <ul>
           {usContacts.map((contact) => (
-            <ul key={contact.id}>
-              <li className="border p-1">{contact.country.name}</li>
-              <li className="border p-1">{contact.phone}</li>
+            <ul key={contact.id } className="mb-5 border p-2" style={{ listStyleType: 'none' }}>
+              <li >{contact.country.name}</li>
+              <li >{contact.phone}</li>
             </ul>
           ))}
         </ul>
