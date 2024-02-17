@@ -33,7 +33,7 @@ const Problem1 = () => {
   const handleClick = (val) => {
     setShow(val);
   };
-
+console.log(tasks);
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
@@ -106,7 +106,9 @@ const Problem1 = () => {
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                {}
+            </tbody>
           </table>
         </div>
       </div>
