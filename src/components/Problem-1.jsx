@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Problem1 = () => {
   //all states
@@ -7,18 +7,28 @@ const Problem1 = () => {
   const [status, setStatus] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  //loading tasks from local storage
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(data);
+  }, []);
 
-  //handle submit function 
-const handleSubmit=(e)=>{
+  // save to local storage
 
+  const saveTasksToLocal = (tasks) => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  };
+
+  //handle submit function
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const newTask = {name,status:"active"};
-    setTasks([...tasks,newTask]);
-    // to save local storage (pending to create )
-    saveTasksToLocal([...tasks,newTask]);
-    setName('');
-    setStatus('');
-}
+    const newTask = { name, status: "active" };
+    setTasks([...tasks, newTask]);
+    // to save local storage
+    saveTasksToLocal([...tasks, newTask]);
+    setName("");
+    setStatus("");
+  };
 
   const handleClick = (val) => {
     setShow(val);
