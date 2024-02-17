@@ -33,7 +33,18 @@ const Problem1 = () => {
   const handleClick = (val) => {
     setShow(val);
   };
-console.log(tasks);
+  // console.log(tasks);
+
+  // filtering the data of tasks
+
+  const filteredTasks = () => {
+    if (show === "active") {
+      return tasks.filter((task) => task.status === "active");
+    } else if (show === "completed") {
+      return tasks.filter((task) => task.status === "completed");
+    }
+    return tasks;
+  };
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
@@ -106,9 +117,7 @@ console.log(tasks);
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
-                {}
-            </tbody>
+            <tbody>{}</tbody>
           </table>
         </div>
       </div>
