@@ -33,10 +33,18 @@ const Problem1 = () => {
   const handleClick = (val) => {
     setShow(val);
   };
-  // console.log(tasks);
+  console.log(tasks);
+
+  //handle status change function
+
+  const handleStatusChange = (taskIndex) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[taskIndex].status = "completed";
+    setTasks(updatedTasks);
+    saveTasksToLocal(updatedTasks);
+  };
 
   // filtering the data of tasks
-
   const filteredTasks = () => {
     if (show === "active") {
       return tasks.filter((task) => task.status === "active");
@@ -117,7 +125,26 @@ const Problem1 = () => {
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>{}</tbody>
+            <tbody>
+              {filteredTasks().map((task, index) => (
+                <tr key={index}>
+                  <td>{task.name}</td>
+                  <td>
+                    {task.status === "active" && (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleStatusChange(index)}
+                      >
+                        Completed
+                      </button>
+                    )}
+                    {task.status === "completed" && (
+                      <span>Completed</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
