@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-const ModalA = ({showModalA,closeModalA,contacts}) => {
+
+const ModalA = ({ showModalA, closeModalA, contacts, switchToModalB }) => {
   return (
     <Modal show={showModalA} onHide={closeModalA}>
       <Modal.Header closeButton>
@@ -16,6 +17,9 @@ const ModalA = ({showModalA,closeModalA,contacts}) => {
         </ul>
       </Modal.Body>
       <Modal.Footer>
+        <Button variant="primary" onClick={switchToModalB}>
+          US Contact
+        </Button>
         <Button variant="secondary" onClick={closeModalA}>
           Close
         </Button>
