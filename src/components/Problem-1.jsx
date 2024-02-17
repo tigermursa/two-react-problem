@@ -139,33 +139,41 @@ const Problem1 = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTasks().map((task, index) => (
-                <tr key={index}>
-                  <td>{task.name}</td>
-                  <td>
-                    {task.status === "active" && <span>Active</span>}
-                    {task.status === "completed" && <span>Completed</span>}
-                  </td>
-                  <td>
-                    {task.status === "active" && (
-                      <div>
-                        <button
-                          className="btn btn-success"
-                          onClick={() => handleStatusChange(index)}
-                        >
-                          Done
-                        </button>
-                        <button
-                          className="btn btn-danger ms-1"
-                          onClick={() => handleDeleteTask(index)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    )}
+              {filteredTasks().length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="text-center">
+                    No {show === "all" ? "tasks" : show} tasks
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredTasks().map((task, index) => (
+                  <tr key={index}>
+                    <td>{task.name}</td>
+                    <td>
+                      {task.status === "active" && <span>Active</span>}
+                      {task.status === "completed" && <span>Completed</span>}
+                    </td>
+                    <td>
+                      {task.status === "active" && (
+                        <div>
+                          <button
+                            className="btn btn-success"
+                            onClick={() => handleStatusChange(index)}
+                          >
+                            Done
+                          </button>
+                          <button
+                            className="btn btn-danger ms-1"
+                            onClick={() => handleDeleteTask(index)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
